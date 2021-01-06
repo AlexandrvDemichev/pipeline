@@ -5,7 +5,7 @@ pipeline {
     parameters {
         string(defaultValue: '', description: 'Версия дистрибутива', name: 'version')
         string(defaultValue: 'ID000000', description: 'ID системы', name: 'ID_system')
-        file(name:'src\\file.txt', description:'Загрузить файл')
+        
     }
     options{
 
