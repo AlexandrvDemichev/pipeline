@@ -19,8 +19,8 @@ pipeline {
                     sh 'pwd'
                     sh 'ls -l'
 
-                    //sh 'cat upload_file.txt'
-                    sh 'ls src'
+                    sh 'cat file.txt'
+  
                         
                 }
             }
