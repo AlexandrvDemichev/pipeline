@@ -16,8 +16,11 @@ pipeline {
             steps{
                 script{
                     echo 'Get upload file'
+                    sh 'pwd'
                     sh 'ls -l'
-                    sh 'cat upload_file.txt'
+
+                    //sh 'cat upload_file.txt'
+                    sh 'ls src'
                         
                 }
             }
