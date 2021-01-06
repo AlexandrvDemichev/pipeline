@@ -17,7 +17,7 @@ pipeline {
                 script{
                     echo 'Get upload file'
                     sh 'ls -l'
-                    cat upload_file.txt
+                    sh 'cat upload_file.txt'
                         
                 }
             }
