@@ -16,7 +16,8 @@ pipeline {
             steps{
                 script{
                     echo 'Get upload file'
-                    echo 'ls -l'
+                    sh 'ls -l'
+                    cat upload_file.txt
                         
                 }
             }
