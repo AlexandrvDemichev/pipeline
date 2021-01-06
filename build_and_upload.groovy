@@ -18,7 +18,7 @@ pipeline {
                     echo 'Get upload file'
                     sh 'pwd'
                     sh 'ls -l'
-
+                    echo 'Upload file text: '
                     sh 'cat file.txt'
   
                         
@@ -30,6 +30,7 @@ pipeline {
             steps{
                 script{
                     echo 'Build archive'
+                    sh 'zip file.txt'
                     
                 }
             }
