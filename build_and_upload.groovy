@@ -4,7 +4,7 @@ pipeline {
     agent any
     parameters {
         string(defaultValue: '', description: 'Версия дистрибутива', name: 'version')
-        string(defaultValue: 'ID000000', description: 'ID системы', name: 'ID_system')
+        string(defaultValue: 'ID000000', description: 'ID системы', name: 'id_system')
         
     }
     options{
@@ -20,6 +20,7 @@ pipeline {
                     sh 'ls -l'
                     echo 'Upload file text: '
                     sh 'cat file.txt'
+                    echo "id_system:"+{id_system}+"   version:"+{version}+
   
                         
                 }
@@ -52,7 +53,7 @@ pipeline {
                                       usernameVariable: 'username')]) {
       
     
-                            def resp = sh(script: 'curl -v -X POST "http://localhost:8081/service/rest/v1/components?repository=Nexus_PROD" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "maven2.groupId=Nexus_PROD" -F "maven2.artifactId='+{ID_system}+'" -F "maven2.version='+{version}+'" -F "maven2.generate-pom=true" -F "maven2.packaging=zip" -F "maven2.asset1=@file.zip;type=application/zip" -F "maven2.asset1.classifier=distrib" -F "maven2.asset1.extension=zip" -u ${username}:${password}', returnStdout: true)        
+                            def resp = sh(script: 'curl -v -X POST "http://localhost:8081/service/rest/v1/components?repository=Nexus_PROD" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "maven2.groupId=Nexus_PROD" -F "maven2.artifactId='+{id_system}+'" -F "maven2.version='+{version}+'" -F "maven2.generate-pom=true" -F "maven2.packaging=zip" -F "maven2.asset1=@file.zip;type=application/zip" -F "maven2.asset1.classifier=distrib" -F "maven2.asset1.extension=zip" -u ${username}:${password}', returnStdout: true)        
                                 echo "Response: "+resp.toString()
                             if(!(resp =~ '204' || resp =~ '200')){
 
