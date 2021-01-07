@@ -1,4 +1,3 @@
-//package main
 def tmp_group_id = 'Nexus_PROD'
 pipeline {
     agent any
