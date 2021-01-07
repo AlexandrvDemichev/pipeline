@@ -36,13 +36,23 @@ pipeline {
         stage('API distrib monitoring') {
             steps{
                 script{
-                    echo 'API distrib monitoring'
-                    try{
-                     
-                    }catch(Exception ee){
-                            echo 'EXCEPTION: ' + ee.getMessage()
-                            currentBuild.result='ABORTED'
-                            return
+                    if(currentBuild.result!='ABORTED'){
+                        echo 'API distrib monitoring'
+                        try{
+                         def resp = sh(script: """curl --location --request POST '127.0.0.1:5000/api/registration?id=${id_system}&version=${version}&path=Nexus_PROD/${id_system}/${version}/${id_system}-${version}-distrib.zip""", returnStdout: true)        
+                                echo "Response: "+resp.toString()
+                            if(!(resp == '' || resp == null)){
+
+
+                                currentBuild.result='ABORTED'
+                                return
+                            }    
+
+                        }catch(Exception ee){
+                                echo 'EXCEPTION: ' + ee.getMessage()
+                                currentBuild.result='ABORTED'
+                                return
+                        }
                     }
                     
                     
