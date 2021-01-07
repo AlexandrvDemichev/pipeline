@@ -36,7 +36,7 @@ pipeline {
         stage('API distrib monitoring') {
             steps{
                 script{
-                    if(currentBuild.result!='ABORTED'){
+                    
                         echo 'API distrib monitoring'
                         try{
                          def resp = sh(script: """curl -v --location --request POST '127.0.0.1:5000/api/registration?id=${id_system}&version=${version}&path=Nexus_PROD/${id_system}/${version}/${id_system}-${version}-distrib.zip""", returnStdout: true)        
@@ -53,7 +53,7 @@ pipeline {
                                 currentBuild.result='ABORTED'
                                 return
                         }
-                    }
+                    
                     
                     
                 }
