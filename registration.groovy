@@ -15,8 +15,8 @@ pipeline {
             steps{
                 script{
                     echo 'Search distrib'
-                    def resp = sh(script: 'psql -version', returnStdout: true)
-                    sleep(3)
+                    def resp = sh(script: 'PGPASSWORD=postgres psql -h 127.0.0.1 -p 5432 -U postgres -d nexus_distrib_monitoring -c "select * from id_system_list"', returnStdout: true)
+                    
                     echo resp
                         
                 }
