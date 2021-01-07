@@ -20,7 +20,7 @@ pipeline {
                     sh 'ls -l'
                     echo 'Upload file text: '
                     sh 'cat file.txt'
-                    echo "id_system:"+{id_system}+"   version:"+{version}+
+                    echo "id_system:"+{id_system}+"   version:"+{version}
   
                         
                 }
