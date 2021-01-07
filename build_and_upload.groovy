@@ -30,7 +30,14 @@ pipeline {
             steps{
                 script{
                     echo 'Build archive'
-                    sh 'zip file.txt'
+                    try{
+                        sh 'zip file.zip file.txt'
+                    }catch(Exception ee){
+                            echo 'EXCEPTION: ' + ee.getMessage()
+                            currentBuild.result='ABORTED'
+                            return
+                    }
+                    
                     
                 }
             }
@@ -39,7 +46,19 @@ pipeline {
             steps{
                 script{
                     echo 'Upload file to nexus'
-                    
+                    try{
+                        def resp = sh(script: 'curl -X POST "http://localhost:8081/service/rest/v1/components?repository=Nexus_PROD" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "maven2.groupId=Nexus_PROD" -F "maven2.artifactId=ID000012" -F "maven2.version=01.001" -F "maven2.generate-pom=true" -F "maven2.packaging=zip" -F "maven2.asset1=@qsSimpleKPI.zip;type=application/zip" -F "maven2.asset1.classifier=distrib" -F "maven2.asset1.extension=zip"', returnStdout: true)        
+                        if(!(resp ~= '204' or resp~= '200')){
+
+                            currentBuild.result='ABORTED'
+                            return
+                        }    
+                    }catch(Exception ee){
+                            echo 'EXCEPTION: ' + ee.getMessage()
+                            currentBuild.result='ABORTED'
+                            return
+                    }  
+
                 }
             }
         }
