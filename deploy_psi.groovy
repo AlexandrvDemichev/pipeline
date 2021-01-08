@@ -37,7 +37,7 @@ pipeline {
                 script{
                     echo 'Download distrib'
                     try{
-                        httpRequest(authentication: 'nexus', url: 'http://localhost:8081/repository/Nexus_PROD/Nexus_PROD/${id_system}/${version}/${id_system}-${version}-distrib.zip', outputFile: '${id_system}-${version}-distrib.zip', ignoreSslErrors: true, responseHandle: 'NONE')
+                        httpRequest(authentication: 'nexus', url: 'http://localhost:8081/repository/Nexus_PROD/Nexus_PROD/'+id_system+'/'+version+'/'+id_system+'-'+version+'-distrib.zip', outputFile: ''+id_system+'-'+version+'-distrib.zip', ignoreSslErrors: true, responseHandle: 'NONE')
                         sh 'ls -l'
                     }catch(Exception ee){
                             echo 'EXCEPTION: ' + ee.getMessage()
